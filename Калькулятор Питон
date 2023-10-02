@@ -1,5 +1,5 @@
-
 import math
+
 
 def calculator():
     print("Выберите операцию:")
@@ -17,8 +17,12 @@ def calculator():
     choice = input("Введите номер операции (1-10): ")
 
     if choice in ('1', '2', '3', '4', '5'):
-        num1 = float(input("Введите первое число: "))
-        num2 = float(input("Введите второе число: "))
+        try:
+            num1 = float(input("Введите первое число: "))
+            num2 = float(input("Введите второе число: "))
+        except ValueError:
+            print("Ошибка! Введенная строка не является числом.")
+            return calculator()
 
         if choice == '1':
             result = num1 + num2
@@ -40,14 +44,28 @@ def calculator():
             print(f"{num1} ** {num2} = {result}")
 
     elif choice in ('6', '7', '8', '9', '10'):
-        num = float(input("Введите число: "))
+        try:
+            num = float(input("Введите число: "))
+        except ValueError:
+            print("Ошибка! Введенная строка не является числом.")
+            return calculator()
+
+
 
         if choice == '6':
-            result = math.sqrt(num)
-            print(f"Квадратный корень из {num} = {result}")
+            if num < 0:
+                print("Ошибка! Невозможно взять квадратный корень от отрицательного числа.")
+            else:
+                result = math.sqrt(num)
+                print(f"Квадратный корень из {num} = {result}")
+
         elif choice == '7':
-            result = math.factorial(num)
-            print(f"Факториал {num} = {result}")
+            if num < 0:
+                print("Ошибка! Невозможно взять факториал от отрицательного числа.")
+            else:
+                result = math.factorial(int(num))
+                print(f"Факториал {num} = {result}")
+
         elif choice == '8':
             result = math.sin(num)
             print(f"Синус {num} = {result}")
@@ -58,7 +76,9 @@ def calculator():
             result = math.tan(num)
             print(f"Тангенс {num} = {result}")
 
+
     else:
+
         print("Неверный ввод")
 
     again()
